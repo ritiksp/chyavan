@@ -94,12 +94,13 @@
 
     <div class="demo-section">
       <h3>📊 Event Log</h3>
-      <div id="output">Waiting for events...</div>
+      <div id="output" class="output">Waiting for events...</div>
       <button onclick="clearOutput()">Clear Log</button>
     </div>
   </div>
 
-  <script src="../dist/chyavan.umd.js"></script>
+  <!-- Load from CDN as fallback for GitHub Pages -->
+  <script src="https://cdn.jsdelivr.net/npm/chyavan@latest/dist/chyavan.umd.js"></script>
   <script>
     let tracker = null;
     const output = document.getElementById('output');
@@ -133,25 +134,11 @@
       if (tracker) return;
       
       tracker = new Chyavan({
-        apiEndpoint: '/track', // Use relative URL for production
+        apiEndpoint: 'https://httpbin.org/post', // Use httpbin for demo
         debug: true,
         bufferSize: 5,
         onFlush: (events) => {
-          log(`📤 Flushed ${events.length} events`);
-          // Simulate API call
-          fetch('/track', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ events })
-          }).then(response => {
-            if (response.ok) {
-              log('✅ Events sent successfully');
-            } else {
-              log('❌ Failed to send events');
-            }
-          }).catch(err => {
-            log('❌ Network error: ' + err.message);
-          });
+          log(`📤 Flushing ${events.length} events`);
         }
       });
       
