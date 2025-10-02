@@ -14,25 +14,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm run build
-      - name: Setup .npmrc
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Debug
-        run: |
-          echo "Current directory: $(pwd)"
-          echo ".npmrc exists: $(test -f .npmrc && echo 'yes' || echo 'no')"
-          echo "Token length: ${#NPM_TOKEN}"
-          cat .npmrc | sed 's/npm_[a-zA-Z0-9]*/npm_REDACTED/'
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Verify auth
-        run: npm whoami
       - name: Publish to npm
         run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   # Optional: deploy demo to gh-pages
   deploy-demo:
@@ -50,4 +38,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./demo
+          publish_dir: ./dist
