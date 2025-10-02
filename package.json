@@ -15,10 +15,13 @@
     "scripts": {
         "clean": "rimraf dist",
         "build": "npm run clean && rollup -c",
+        "build:prod": "NODE_ENV=production npm run build",
         "watch": "rollup -c -w",
         "lint": "eslint src --fix",
         "start:demo": "npx serve demo -p 8080",
-        "test-server": "node server/server.js"
+        "test-server": "node server/server.js",
+        "test-server:prod": "NODE_ENV=production node server/server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
@@ -43,6 +46,9 @@
     },
     "dependencies": {
         "body-parser": "^2.2.0",
-        "express": "^5.1.0"
+        "cors": "^2.8.5",
+        "express": "^5.1.0",
+        "express-rate-limit": "^8.1.0",
+        "helmet": "^8.1.0"
     }
 }
