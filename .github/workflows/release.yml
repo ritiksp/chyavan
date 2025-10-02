@@ -19,7 +19,8 @@ jobs:
       - run: npm run build
       - name: Setup NPM Authentication
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      - run: npm whoami
       - name: Publish to npm
         run: npm publish --access public
 
