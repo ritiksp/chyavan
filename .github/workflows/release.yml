@@ -18,9 +18,18 @@ jobs:
       - run: npm run build
       - name: Setup .npmrc
         run: |
-          cat > .npmrc << EOF
-          //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-          EOF
+          echo "//registry.npmjs.org/:_authToken=\$NODE_AUTH_TOKEN" > .npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Debug
+        run: |
+          echo "Current directory: $(pwd)"
+          echo ".npmrc exists: $(test -f .npmrc && echo 'yes' || echo 'no')"
+          echo ".npmrc in home: $(test -f ~/.npmrc && echo 'yes' || echo 'no')"
+          ls -la .npmrc || echo "No .npmrc in current dir"
+          echo "Token length: ${#NODE_AUTH_TOKEN}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Verify auth
         run: npm whoami
       - name: Publish to npm
