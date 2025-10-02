@@ -3,103 +3,384 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chyavan Demo - User Behavior Tracking</title>
+  <title>Chyavan - Privacy-First User Behavior Analytics</title>
+  <meta name="description" content="Lightweight, privacy-focused user behavior tracking library for modern web applications">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
       line-height: 1.6;
-      background-color: #f5f5f5;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
     }
-    .container {
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .hero .tagline {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: #888;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 15px 35px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-secondary {
       background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      color: #667eea;
+      border: 2px solid #667eea;
     }
-    h1 { color: #333; text-align: center; margin-bottom: 30px; }
+
+    .features {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #667eea;
+    }
+
+    .feature-card p {
+      color: #666;
+      line-height: 1.8;
+    }
+
     .demo-section {
-      margin: 20px 0;
-      padding: 20px;
-      background: #f8f9fa;
-      border-radius: 5px;
-      border-left: 4px solid #007bff;
+      background: white;
+      padding: 60px 20px;
+      margin-top: 40px;
     }
+
+    .demo-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .demo-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #667eea;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 25px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 20px 0;
+    }
+
+    .code-comment {
+      color: #68d391;
+    }
+
+    .interactive-demo {
+      background: #f7fafc;
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .interactive-demo h3 {
+      color: #667eea;
+      margin-bottom: 20px;
+    }
+
     input, textarea {
       width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 14px;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
     }
-    button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin: 5px;
-      font-size: 14px;
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
     }
-    button:hover { background: #0056b3; }
+
     .output {
       background: #2d3748;
       color: #e2e8f0;
-      padding: 15px;
-      border-radius: 4px;
-      font-family: 'Courier New', monospace;
-      margin-top: 10px;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Monaco', 'Courier New', monospace;
+      margin-top: 15px;
       white-space: pre-wrap;
-      min-height: 100px;
+      min-height: 150px;
       max-height: 300px;
       overflow-y: auto;
+      font-size: 0.85rem;
     }
+
     .consent-banner {
-      background: #fff3cd;
-      border: 1px solid #ffeaa7;
-      padding: 15px;
-      border-radius: 4px;
-      margin-bottom: 20px;
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    footer {
+      background: rgba(255, 255, 255, 0.95);
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero .tagline {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 Chyavan Demo</h1>
-    
-    <div class="consent-banner">
-      <h3>🔒 Privacy Notice</h3>
-      <p>This demo tracks user interactions for UX analytics. No sensitive data is collected.</p>
-      <button onclick="giveConsent()">✅ I Consent to Tracking</button>
-      <button onclick="denyConsent()">❌ Deny Tracking</button>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>🚀 Chyavan</h1>
+    <p class="tagline">Privacy-First User Behavior Analytics</p>
+    <p class="subtitle">
+      A lightweight, production-ready tracking library that respects user privacy 
+      while providing powerful insights into user behavior.
+    </p>
+    <div class="cta-buttons">
+      <a href="https://www.npmjs.com/package/chyavan" class="btn btn-primary" target="_blank">
+        📦 Install via npm
+      </a>
+      <a href="https://github.com/ritiksp/chyavan" class="btn btn-secondary" target="_blank">
+        💻 View on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>Privacy First</h3>
+      <p>
+        Built with GDPR compliance in mind. Automatically excludes sensitive fields like 
+        passwords and credit cards. Requires explicit user consent before tracking.
+      </p>
     </div>
 
-    <div class="demo-section">
-      <h3>📝 Test Input Fields</h3>
-      <input type="text" placeholder="Type here to test keystroke tracking..." />
-      <textarea placeholder="Test textarea tracking..."></textarea>
-      <input type="email" placeholder="Test email field..." />
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Lightweight & Fast</h3>
+      <p>
+        Minimal footprint with zero dependencies. Efficient event buffering and 
+        debouncing ensures your app stays fast and responsive.
+      </p>
     </div>
 
-    <div class="demo-section">
-      <h3>🖱️ Interactive Elements</h3>
-      <button onclick="trackCustomEvent()">Track Custom Event</button>
-      <button onclick="flushEvents()">Flush Events</button>
-      <button onclick="toggleTracking()">Toggle Tracking</button>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Smart Tracking</h3>
+      <p>
+        Captures keystrokes, mouse movements, scrolls, and custom events. 
+        Intelligent sanitization prevents accidental logging of sensitive data.
+      </p>
     </div>
 
-    <div class="demo-section">
-      <h3>📊 Event Log</h3>
-      <div id="output" class="output">Waiting for events...</div>
-      <button onclick="clearOutput()">Clear Log</button>
+    <div class="feature-card">
+      <div class="feature-icon">🔧</div>
+      <h3>Easy Integration</h3>
+      <p>
+        Simple API that works out of the box. Customize buffering, flush intervals, 
+        and endpoints to match your needs.
+      </p>
     </div>
-  </div>
 
-  <!-- Load from CDN as fallback for GitHub Pages -->
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Session Tracking</h3>
+      <p>
+        Automatic session management with unique IDs. Track user journeys across 
+        your entire application seamlessly.
+      </p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <h3>Developer Friendly</h3>
+      <p>
+        Debug mode, custom event hooks, and flexible configuration. 
+        Built for developers who care about user experience.
+      </p>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="demo-section">
+    <div class="demo-container">
+      <h2>Quick Start</h2>
+      
+      <div class="code-block">
+<span class="code-comment">// Install via npm</span>
+npm install chyavan
+
+<span class="code-comment">// Import and initialize</span>
+import Chyavan from 'chyavan';
+
+const tracker = new Chyavan({
+  apiEndpoint: '/api/track',
+  debug: true,
+  bufferSize: 20,
+  flushInterval: 5000,
+  onFlush: (events) => {
+    console.log('Flushing events:', events);
+  }
+});
+
+<span class="code-comment">// Track custom events</span>
+tracker.track('button_click', {
+  buttonId: 'signup',
+  timestamp: Date.now()
+});
+      </div>
+
+      <!-- Interactive Demo -->
+      <div class="interactive-demo">
+        <div class="consent-banner">
+          <h3>🔒 Privacy Notice</h3>
+          <p>This demo tracks interactions for analytics. No sensitive data is collected.</p>
+          <div class="cta-buttons">
+            <button class="btn btn-primary" onclick="giveConsent()">✅ I Consent</button>
+            <button class="btn btn-secondary" onclick="denyConsent()">❌ Deny</button>
+          </div>
+        </div>
+
+        <h3>📝 Try it yourself</h3>
+        <input type="text" placeholder="Type here to test keystroke tracking..." />
+        <textarea placeholder="Test textarea tracking..." rows="3"></textarea>
+        
+        <div class="cta-buttons" style="margin-top: 20px;">
+          <button class="btn btn-primary" onclick="trackCustomEvent()">Track Custom Event</button>
+          <button class="btn btn-secondary" onclick="flushEvents()">Flush Events</button>
+          <button class="btn btn-secondary" onclick="toggleTracking()">Toggle Tracking</button>
+        </div>
+
+        <h3 style="margin-top: 30px;">📊 Event Log</h3>
+        <div id="output" class="output">Waiting for events...</div>
+        <button class="btn btn-secondary" onclick="clearOutput()" style="margin-top: 10px;">Clear Log</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Made with ❤️ by <a href="https://github.com/ritiksp" target="_blank">Ritik</a> | 
+      <a href="https://github.com/ritiksp/chyavan" target="_blank">GitHub</a> | 
+      <a href="https://www.npmjs.com/package/chyavan" target="_blank">npm</a>
+    </p>
+    <p style="margin-top: 10px; color: #666;">
+      Licensed under MIT | Open Source
+    </p>
+  </footer>
+
+  <!-- Load Chyavan -->
   <script src="https://cdn.jsdelivr.net/npm/chyavan@latest/dist/chyavan.umd.js"></script>
   <script>
     let tracker = null;
@@ -134,7 +415,7 @@
       if (tracker) return;
       
       tracker = new Chyavan({
-        apiEndpoint: 'https://httpbin.org/post', // Use httpbin for demo
+        apiEndpoint: 'https://httpbin.org/post',
         debug: true,
         bufferSize: 5,
         onFlush: (events) => {
@@ -147,7 +428,7 @@
     
     function trackCustomEvent() {
       if (!tracker) {
-        log('❌ Tracker not initialized');
+        log('❌ Tracker not initialized - please give consent first');
         return;
       }
       tracker.track('demo_button_click', {
@@ -159,7 +440,7 @@
     
     function flushEvents() {
       if (!tracker) {
-        log('❌ Tracker not initialized');
+        log('❌ Tracker not initialized - please give consent first');
         return;
       }
       tracker.flush();
@@ -167,7 +448,7 @@
     
     function toggleTracking() {
       if (!tracker) {
-        log('❌ Tracker not initialized');
+        log('❌ Tracker not initialized - please give consent first');
         return;
       }
       if (tracker.isEnabled()) {
