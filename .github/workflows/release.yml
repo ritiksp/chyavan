@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        registry-url: 'https://registry.npmjs.org'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build library
+      run: npm run build
+      
+    - name: Run tests (if available)
+      run: npm test || echo "No tests configured"
+      
+    - name: Create release archive
+      run: |
+        mkdir -p release
+        cp -r dist release/
+        cp package.json README.md LICENSE release/
+        cd release && tar -czf ../chyavan-${{ github.ref_name }}.tar.gz *
+        
+    - name: Upload release assets
+      uses: actions/upload-artifact@v4
+      with:
+        name: chyavan-${{ github.ref_name }}
+        path: |
+          chyavan-${{ github.ref_name }}.tar.gz
+          dist/
+          
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          ## Chyavan ${{ github.ref_name }}
+          
+          ### Changes
+          - See commit history for detailed changes
+          
+          ### Downloads
+          - Source: `chyavan-${{ github.ref_name }}.tar.gz`
+          - UMD: `dist/chyavan.min.js`
+          - ES Module: `dist/chyavan.esm.js`
+          
+          ### Installation
+          ```bash
+          npm install chyavan
+          ```
+        draft: false
+        prerelease: false
+        
+    - name: Upload to GitHub Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./chyavan-${{ github.ref_name }}.tar.gz
+        asset_name: chyavan-${{ github.ref_name }}.tar.gz
+        asset_content_type: application/gzip

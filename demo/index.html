@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Chyavan Demo</title>
+</head>
+<body>
+  <h1>Chyavan Demo</h1>
+  <script src="../dist/chyavan.umd.js"></script>
+  <script>
+    // initialize tracker
+    const tracker = new Chyavan({
+      apiEndpoint: 'http://localhost:3000/track',
+      debug: true,
+      bufferSize: 20,
+      onFlush: (events) => { console.log('flushed', events.length); }
+    });
+
+    // manual tracking
+    setTimeout(() => {
+      tracker.track('demo_event', { message: 'Hello from demo' });
+    }, 2000);
+  </script>
+</body>
+</html>
