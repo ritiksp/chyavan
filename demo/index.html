@@ -3,8 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chyavan - Privacy-First User Behavior Analytics</title>
-  <meta name="description" content="Lightweight, privacy-focused user behavior tracking library for modern web applications">
+  <title>Chyavan - Privacy-First Behavioral Analytics</title>
+  <meta name="description" content="Like the ancient sage who perceived subtle changes, Chyavan captures nuanced user interactions with privacy-first behavioral analytics.">
+  
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Google Fonts - Inter (Notion-like) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     * {
       margin: 0;
@@ -12,379 +21,847 @@
       box-sizing: border-box;
     }
     
+    :root {
+      --notion-text: #37352f;
+      --notion-text-secondary: #787774;
+      --notion-bg: #ffffff;
+      --notion-border: #e9e9e7;
+      --notion-hover: #f7f6f3;
+      --notion-code-bg: #f7f6f3;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      line-height: 1.7;
+      color: var(--notion-text);
+      background: var(--notion-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+    
+    /* Header Image */
+    .header-image {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid var(--notion-border);
     }
-
-    .hero h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 20px;
-    }
-
-    .hero .tagline {
-      font-size: 1.5rem;
-      color: #666;
-      margin-bottom: 30px;
-      font-weight: 300;
-    }
-
-    .hero .subtitle {
-      font-size: 1.1rem;
-      color: #888;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 15px 35px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 600;
-      text-decoration: none;
-      display: inline-block;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
-
-    .btn-secondary {
-      background: white;
-      color: #667eea;
-      border: 2px solid #667eea;
-    }
-
-    .features {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 60px 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-    }
-
-    .feature-card {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #667eea;
-    }
-
-    .feature-card p {
-      color: #666;
-      line-height: 1.8;
-    }
-
-    .demo-section {
-      background: white;
-      padding: 60px 20px;
-      margin-top: 40px;
-    }
-
-    .demo-container {
+    
+    /* Main Container */
+    .notion-container {
       max-width: 900px;
       margin: 0 auto;
+      padding: 60px 24px 80px;
     }
-
-    .demo-section h2 {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: #667eea;
+    
+    /* Typography */
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      color: var(--notion-text);
     }
-
-    .code-block {
-      background: #2d3748;
-      color: #e2e8f0;
-      padding: 25px;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: 'Monaco', 'Courier New', monospace;
-      font-size: 0.9rem;
+    
+    .lead-text {
+      font-size: 1.125rem;
+      color: var(--notion-text-secondary);
+      margin-bottom: 32px;
       line-height: 1.6;
-      margin: 20px 0;
     }
-
-    .code-comment {
-      color: #68d391;
+    
+    h2 {
+      font-size: 1.875rem;
+      font-weight: 600;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      color: var(--notion-text);
     }
-
-    .interactive-demo {
-      background: #f7fafc;
-      padding: 30px;
-      border-radius: 15px;
-      margin-top: 40px;
-      border: 2px solid #e2e8f0;
+    
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+      color: var(--notion-text);
     }
-
-    .interactive-demo h3 {
-      color: #667eea;
-      margin-bottom: 20px;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 2px solid #e2e8f0;
-      border-radius: 8px;
+    
+    p {
       font-size: 1rem;
-      transition: border-color 0.3s;
+      margin-bottom: 16px;
+      color: var(--notion-text);
     }
-
-    input:focus, textarea:focus {
+    
+    /* Buttons - Notion Style */
+    .notion-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+      border: 1px solid var(--notion-border);
+      background: var(--notion-bg);
+      color: var(--notion-text);
+      cursor: pointer;
+    }
+    
+    .notion-btn:hover {
+      background: var(--notion-hover);
+      color: var(--notion-text);
+    }
+    
+    .notion-btn-primary {
+      background: var(--notion-text);
+      color: white;
+      border-color: var(--notion-text);
+    }
+    
+    .notion-btn-primary:hover {
+      background: #2d2b28;
+      color: white;
+    }
+    
+    /* Callout Box */
+    .notion-callout {
+      display: flex;
+      padding: 16px;
+      background: var(--notion-code-bg);
+      border-radius: 4px;
+      margin: 24px 0;
+      border-left: 3px solid var(--notion-text);
+    }
+    
+    .notion-callout-icon {
+      font-size: 1.5rem;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    
+    .notion-callout-content {
+      flex: 1;
+    }
+    
+    /* Code Block */
+    .notion-code {
+      background: var(--notion-code-bg);
+      border: 1px solid var(--notion-border);
+      border-radius: 4px;
+      padding: 16px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      margin: 16px 0;
+      color: var(--notion-text);
+    }
+    
+    .notion-code-comment {
+      color: var(--notion-text-secondary);
+    }
+    
+    /* Divider */
+    .notion-divider {
+      border: 0;
+      border-top: 1px solid var(--notion-border);
+      margin: 48px 0;
+    }
+    
+    /* Toggle/Accordion */
+    .notion-toggle {
+      border: 1px solid var(--notion-border);
+      border-radius: 4px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+    
+    .notion-toggle-header {
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      background: var(--notion-bg);
+      transition: background-color 0.15s ease;
+      font-weight: 500;
+    }
+    
+    .notion-toggle-header:hover {
+      background: var(--notion-hover);
+    }
+    
+    .notion-toggle-icon {
+      margin-right: 8px;
+      transition: transform 0.2s ease;
+      font-size: 0.875rem;
+    }
+    
+    .notion-toggle.active .notion-toggle-icon {
+      transform: rotate(90deg);
+    }
+    
+    .notion-toggle-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      padding: 0 16px;
+      background: var(--notion-hover);
+    }
+    
+    .notion-toggle.active .notion-toggle-content {
+      max-height: 2000px;
+      padding: 16px;
+    }
+    
+    /* List Styling */
+    ul, ol {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      color: var(--notion-text);
+    }
+    
+    /* Quote */
+    blockquote {
+      border-left: 3px solid var(--notion-text);
+      padding-left: 16px;
+      margin: 24px 0;
+      color: var(--notion-text-secondary);
+      font-style: italic;
+    }
+    
+    /* Interactive Demo */
+    .notion-demo {
+      background: var(--notion-code-bg);
+      border: 1px solid var(--notion-border);
+      border-radius: 4px;
+      padding: 24px;
+      margin: 24px 0;
+    }
+    
+    .notion-input, .notion-textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--notion-border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      background: white;
+      color: var(--notion-text);
+      transition: border-color 0.15s ease;
+    }
+    
+    .notion-input:focus, .notion-textarea:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: var(--notion-text);
     }
-
-    .output {
-      background: #2d3748;
-      color: #e2e8f0;
-      padding: 20px;
-      border-radius: 8px;
-      font-family: 'Monaco', 'Courier New', monospace;
-      margin-top: 15px;
-      white-space: pre-wrap;
-      min-height: 150px;
+    
+    .notion-output {
+      background: var(--notion-text);
+      color: white;
+      padding: 16px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
       max-height: 300px;
       overflow-y: auto;
-      font-size: 0.85rem;
+      margin-top: 16px;
+      white-space: pre-wrap;
     }
-
-    .consent-banner {
-      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-
+    
+    /* Footer */
     footer {
-      background: rgba(255, 255, 255, 0.95);
+      max-width: 900px;
+      margin: 80px auto 0;
+      padding: 32px 24px;
+      border-top: 1px solid var(--notion-border);
       text-align: center;
-      padding: 40px 20px;
-      margin-top: 60px;
+      color: var(--notion-text-secondary);
+      font-size: 0.875rem;
     }
-
+    
     footer a {
-      color: #667eea;
+      color: var(--notion-text);
       text-decoration: none;
-      font-weight: 600;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s ease;
     }
-
+    
     footer a:hover {
-      text-decoration: underline;
+      border-bottom-color: var(--notion-text);
     }
-
+    
+    /* Responsive */
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
+      h1 {
+        font-size: 2rem;
       }
       
-      .hero .tagline {
-        font-size: 1.2rem;
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .notion-container {
+        padding: 40px 16px 60px;
+      }
+      
+      .header-image {
+        height: 200px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>🚀 Chyavan</h1>
-    <p class="tagline">Privacy-First User Behavior Analytics</p>
-    <p class="subtitle">
-      A lightweight, production-ready tracking library that respects user privacy 
-      while providing powerful insights into user behavior.
+  <!-- Header Image -->
+  <img src="https://i0.wp.com/asia-archive.si.edu/wp-content/uploads/2020/11/publications_banner.jpg?w=2560&ssl=1" 
+       alt="Ancient Asian artwork banner" 
+       class="header-image">
+
+  <!-- Main Content -->
+  <div class="notion-container">
+    
+    <!-- Title -->
+    <h1>Chyavan</h1>
+    <p class="lead-text">
+      Privacy-first behavioral analytics for modern web applications. 
+      Named after the ancient sage who perceived the subtlest changes in his environment.
     </p>
-    <div class="cta-buttons">
-      <a href="https://www.npmjs.com/package/chyavan" class="btn btn-primary" target="_blank">
+    
+    <!-- Action Buttons -->
+    <div class="d-flex gap-2 flex-wrap mb-4">
+      <a href="https://www.npmjs.com/package/chyavan" class="notion-btn notion-btn-primary" target="_blank">
         📦 Install via npm
       </a>
-      <a href="https://github.com/ritiksp/chyavan" class="btn btn-secondary" target="_blank">
+      <a href="https://github.com/ritiksp/chyavan" class="notion-btn" target="_blank">
         💻 View on GitHub
       </a>
     </div>
-  </section>
 
-  <!-- Features Section -->
-  <section class="features">
-    <div class="feature-card">
-      <div class="feature-icon">🔒</div>
-      <h3>Privacy First</h3>
-      <p>
-        Built with GDPR compliance in mind. Automatically excludes sensitive fields like 
-        passwords and credit cards. Requires explicit user consent before tracking.
-      </p>
+    <hr class="notion-divider">
+
+    <!-- About Section -->
+    <h2>About the Name</h2>
+    <p>
+      <strong>Chyavana</strong> (Sanskrit: च्यवन) was a renowned sage (rishi) in Hindu mythology, 
+      celebrated for his profound wisdom and extraordinary perception. According to ancient texts, 
+      Chyavana meditated with such intensity that his body became covered by an anthill, yet he 
+      remained aware of even the subtlest disturbances around him.
+    </p>
+    
+    <blockquote>
+      Like the sage who could perceive minute changes during deep meditation, 
+      this library detects the subtle patterns in user behavior that reveal deeper insights.
+    </blockquote>
+    
+    <p>
+      The most famous story of Chyavana tells of his transformation from a decrepit hermit to 
+      an eternally youthful sage through the intervention of the Ashwini Kumaras, divine physicians. 
+      This metamorphosis symbolizes the transformation of raw behavioral data into actionable insights—
+      turning the ordinary into the extraordinary through careful observation and analysis.
+    </p>
+
+    <div class="notion-callout">
+      <div class="notion-callout-icon">💡</div>
+      <div class="notion-callout-content">
+        <strong>Philosophy:</strong> Just as Chyavana demonstrated patience and profound awareness, 
+        this library emphasizes thoughtful, privacy-respecting observation of user interactions 
+        rather than invasive tracking.
+      </div>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Lightweight & Fast</h3>
-      <p>
-        Minimal footprint with zero dependencies. Efficient event buffering and 
-        debouncing ensures your app stays fast and responsive.
-      </p>
-    </div>
+    <hr class="notion-divider">
 
-    <div class="feature-card">
-      <div class="feature-icon">🎯</div>
-      <h3>Smart Tracking</h3>
-      <p>
-        Captures keystrokes, mouse movements, scrolls, and custom events. 
-        Intelligent sanitization prevents accidental logging of sensitive data.
-      </p>
-    </div>
+    <!-- What It Does -->
+    <h2>What is Chyavan?</h2>
+    <p>
+      Chyavan is a lightweight, privacy-first behavioral analytics library that captures nuanced 
+      user interaction patterns beyond traditional analytics. It tracks micro-hesitations, cursor 
+      movements, typing rhythms, and gesture patterns—revealing insights that standard analytics miss.
+    </p>
 
-    <div class="feature-card">
-      <div class="feature-icon">🔧</div>
-      <h3>Easy Integration</h3>
-      <p>
-        Simple API that works out of the box. Customize buffering, flush intervals, 
-        and endpoints to match your needs.
-      </p>
-    </div>
+    <h3>Core Capabilities</h3>
+    <ul>
+      <li><strong>Micro-hesitation Detection</strong> — Captures sub-second pauses before user actions, revealing uncertainty or friction</li>
+      <li><strong>Cursor Trajectory Analysis</strong> — Monitors mouse movement patterns and jitter to detect confusion or stress</li>
+      <li><strong>Typing Behavior Analysis</strong> — Analyzes keystroke dynamics and rhythm to understand user expertise and confidence</li>
+      <li><strong>Gesture Recognition</strong> — Recognizes touch patterns on mobile devices (swipes, taps, pinches)</li>
+      <li><strong>Performance Metrics</strong> — Tracks page load times, paint metrics, and resource timing</li>
+      <li><strong>Intent Prediction</strong> — Identifies potential abandonment patterns and retry behaviors</li>
+    </ul>
 
-    <div class="feature-card">
-      <div class="feature-icon">📊</div>
-      <h3>Session Tracking</h3>
-      <p>
-        Automatic session management with unique IDs. Track user journeys across 
-        your entire application seamlessly.
-      </p>
-    </div>
+    <h3>Privacy-First Design</h3>
+    <p>
+      Following the sage's principle of mindful observation without intrusion:
+    </p>
+    <ul>
+      <li>No personal data collection by default</li>
+      <li>Automatic exclusion of sensitive form fields (passwords, credit cards)</li>
+      <li>Explicit user consent requirement</li>
+      <li>GDPR compliant architecture</li>
+      <li>All tracking configurable and transparent</li>
+    </ul>
 
-    <div class="feature-card">
-      <div class="feature-icon">🛠️</div>
-      <h3>Developer Friendly</h3>
-      <p>
-        Debug mode, custom event hooks, and flexible configuration. 
-        Built for developers who care about user experience.
-      </p>
-    </div>
-  </section>
+    <hr class="notion-divider">
 
-  <!-- Demo Section -->
-  <section class="demo-section">
-    <div class="demo-container">
-      <h2>Quick Start</h2>
-      
-      <div class="code-block">
-<span class="code-comment">// Install via npm</span>
+    <!-- Installation -->
+    <h2>Quick Start</h2>
+    
+    <h3>Installation</h3>
+    <div class="notion-code">
+<span class="notion-code-comment"># Install via npm</span>
 npm install chyavan
 
-<span class="code-comment">// Import and initialize</span>
+<span class="notion-code-comment"># Or via yarn</span>
+yarn add chyavan
+    </div>
+
+    <h3>Basic Usage</h3>
+    <div class="notion-code">
+<span class="notion-code-comment">// Import and initialize</span>
 import Chyavan from 'chyavan';
 
-const tracker = new Chyavan({
-  apiEndpoint: '/api/track',
-  debug: true,
-  bufferSize: 20,
-  flushInterval: 5000,
-  onFlush: (events) => {
-    console.log('Flushing events:', events);
-  }
+const analytics = new Chyavan({
+  apiEndpoint: 'https://your-api.com/analytics',
+  userId: 'user123',
+  debug: true
 });
 
-<span class="code-comment">// Track custom events</span>
-tracker.track('button_click', {
-  buttonId: 'signup',
+<span class="notion-code-comment">// The library automatically starts tracking</span>
+<span class="notion-code-comment">// Events are buffered and sent automatically</span>
+
+<span class="notion-code-comment">// Track custom events</span>
+analytics.track('button_clicked', {
+  buttonId: 'signup-btn',
   timestamp: Date.now()
 });
+    </div>
+
+    <h3>CDN Usage</h3>
+    <div class="notion-code">
+&lt;!-- Include via CDN --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/chyavan@latest/dist/chyavan.umd.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  const analytics = new Chyavan({
+    apiEndpoint: '/api/track'
+  });
+&lt;/script&gt;
+    </div>
+
+    <hr class="notion-divider">
+
+    <!-- Features Deep Dive -->
+    <h2>Technical Features</h2>
+    
+    <!-- Toggles for each feature -->
+    <div class="notion-toggle">
+      <div class="notion-toggle-header">
+        <span class="notion-toggle-icon">▶</span>
+        <strong>Browser & Platform Support</strong>
       </div>
-
-      <!-- Interactive Demo -->
-      <div class="interactive-demo">
-        <div class="consent-banner">
-          <h3>🔒 Privacy Notice</h3>
-          <p>This demo tracks interactions for analytics. No sensitive data is collected.</p>
-          <div class="cta-buttons">
-            <button class="btn btn-primary" onclick="giveConsent()">✅ I Consent</button>
-            <button class="btn btn-secondary" onclick="denyConsent()">❌ Deny</button>
-          </div>
-        </div>
-
-        <h3>📝 Try it yourself</h3>
-        <input type="text" placeholder="Type here to test keystroke tracking..." />
-        <textarea placeholder="Test textarea tracking..." rows="3"></textarea>
-        
-        <div class="cta-buttons" style="margin-top: 20px;">
-          <button class="btn btn-primary" onclick="trackCustomEvent()">Track Custom Event</button>
-          <button class="btn btn-secondary" onclick="flushEvents()">Flush Events</button>
-          <button class="btn btn-secondary" onclick="toggleTracking()">Toggle Tracking</button>
-        </div>
-
-        <h3 style="margin-top: 30px;">📊 Event Log</h3>
-        <div id="output" class="output">Waiting for events...</div>
-        <button class="btn btn-secondary" onclick="clearOutput()" style="margin-top: 10px;">Clear Log</button>
+      <div class="notion-toggle-content">
+        <p><strong>Desktop Browsers:</strong></p>
+        <ul>
+          <li>Chrome/Edge (Chromium) 90+ — Full support with high-resolution timing</li>
+          <li>Firefox 89+ — Full support with standard APIs</li>
+          <li>Safari 14+ — Full support with WebKit optimizations</li>
+        </ul>
+        <p><strong>Mobile Browsers:</strong></p>
+        <ul>
+          <li>iOS Safari — Touch events, gesture recognition, 60Hz sampling</li>
+          <li>Android Chrome — Full touch support, up to 120Hz on supported devices</li>
+        </ul>
+        <p><strong>Operating Systems:</strong></p>
+        <ul>
+          <li>Windows 10/11, macOS 10.15+, Linux (Ubuntu 20+)</li>
+          <li>iOS 13+, Android 8+</li>
+        </ul>
       </div>
     </div>
-  </section>
+
+    <div class="notion-toggle">
+      <div class="notion-toggle-header">
+        <span class="notion-toggle-icon">▶</span>
+        <strong>Performance Characteristics</strong>
+      </div>
+      <div class="notion-toggle-content">
+        <ul>
+          <li><strong>Bundle Size:</strong> ~8KB minified + gzipped</li>
+          <li><strong>Zero Dependencies:</strong> No external libraries required</li>
+          <li><strong>Non-blocking:</strong> Uses passive event listeners and Web Workers compatible</li>
+          <li><strong>Efficient Buffering:</strong> Configurable buffer size and flush intervals</li>
+          <li><strong>Sampling Rate:</strong> Up to 120Hz on supported browsers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="notion-toggle">
+      <div class="notion-toggle-header">
+        <span class="notion-toggle-icon">▶</span>
+        <strong>Configuration Options</strong>
+      </div>
+      <div class="notion-toggle-content">
+        <div class="notion-code">
+const analytics = new Chyavan({
+  <span class="notion-code-comment">// Server Configuration</span>
+  apiEndpoint: '/api/analytics',
+  userId: 'user123',
+  sessionId: 'optional-custom-id',
+  
+  <span class="notion-code-comment">// Performance Settings</span>
+  samplingRate: 60,        <span class="notion-code-comment">// Hz</span>
+  bufferSize: 100,         <span class="notion-code-comment">// events before flush</span>
+  flushInterval: 5000,     <span class="notion-code-comment">// milliseconds</span>
+  
+  <span class="notion-code-comment">// Feature Toggles</span>
+  enableMicroHesitation: true,
+  enableCursorTracking: true,
+  enableTypingAnalysis: true,
+  enableGestureTracking: true,
+  enablePerformanceMetrics: true,
+  
+  <span class="notion-code-comment">// Development</span>
+  debug: false,
+  
+  <span class="notion-code-comment">// Custom callback</span>
+  onFlush: (events) => {
+    console.log('Events:', events);
+  }
+});
+        </div>
+      </div>
+    </div>
+
+    <div class="notion-toggle">
+      <div class="notion-toggle-header">
+        <span class="notion-toggle-icon">▶</span>
+        <strong>Event Types & Data Structure</strong>
+      </div>
+      <div class="notion-toggle-content">
+        <p><strong>Micro-hesitation Event:</strong></p>
+        <div class="notion-code">
+{
+  type: 'micro_hesitation',
+  data: {
+    duration: 1250,        <span class="notion-code-comment">// milliseconds</span>
+    elementTag: 'BUTTON',
+    elementId: 'signup-btn',
+    timestamp: 1699123456789
+  }
+}
+        </div>
+        <p><strong>Cursor Jitter Event:</strong></p>
+        <div class="notion-code">
+{
+  type: 'cursor_jitter',
+  data: {
+    jitter: 3.2,           <span class="notion-code-comment">// coefficient</span>
+    pathLength: 45,
+    timestamp: 1699123456789
+  }
+}
+        </div>
+        <p><strong>Typing Rhythm Event:</strong></p>
+        <div class="notion-code">
+{
+  type: 'typing_rhythm',
+  data: {
+    avgInterval: 180,      <span class="notion-code-comment">// milliseconds</span>
+    stdDev: 45,
+    pauseCount: 3,
+    wpm: 65,
+    timestamp: 1699123456789
+  }
+}
+        </div>
+      </div>
+    </div>
+
+    <hr class="notion-divider">
+
+    <!-- Interactive Demo -->
+    <h2>Interactive Demo</h2>
+    
+    <div class="notion-callout">
+      <div class="notion-callout-icon">🔒</div>
+      <div class="notion-callout-content">
+        <strong>Privacy Notice:</strong> This demo tracks interactions for demonstration purposes only. 
+        No data is stored or sent to external servers.
+      </div>
+    </div>
+
+    <div class="notion-demo">
+      <h3 style="margin-top: 0;">Try It Yourself</h3>
+      <p style="color: var(--notion-text-secondary); font-size: 0.9375rem;">
+        Interact with the inputs below to see events being tracked in real-time
+      </p>
+      
+      <input type="text" 
+             class="notion-input" 
+             placeholder="Type here to test keystroke tracking...">
+      
+      <textarea class="notion-textarea" 
+                rows="3" 
+                placeholder="Test textarea tracking..."></textarea>
+      
+      <div class="d-flex gap-2 flex-wrap mb-3">
+        <button class="notion-btn notion-btn-primary" onclick="trackCustomEvent()">
+          Track Custom Event
+        </button>
+        <button class="notion-btn" onclick="flushEvents()">
+          Flush Events
+        </button>
+        <button class="notion-btn" onclick="toggleTracking()">
+          Toggle Tracking
+        </button>
+        <button class="notion-btn" onclick="clearOutput()">
+          Clear Log
+        </button>
+      </div>
+      
+      <h4 style="margin-top: 24px; margin-bottom: 8px; font-size: 0.9375rem; font-weight: 600;">
+        Event Log
+      </h4>
+      <div id="output" class="notion-output">Waiting for events...</div>
+    </div>
+
+    <hr class="notion-divider">
+
+    <!-- Use Cases -->
+    <h2>Use Cases</h2>
+    
+    <h3>E-commerce Optimization</h3>
+    <ul>
+      <li>Identify hesitation points in checkout flows</li>
+      <li>Detect price sensitivity through micro-hesitations on "Buy Now" buttons</li>
+      <li>Understand mobile shopping patterns through gesture analysis</li>
+    </ul>
+
+    <h3>SaaS Product Analytics</h3>
+    <ul>
+      <li>Measure feature discovery through cursor movement patterns</li>
+      <li>Identify confused users via high cursor jitter</li>
+      <li>Segment users by expertise level using typing analysis</li>
+    </ul>
+
+    <h3>Form Optimization</h3>
+    <ul>
+      <li>Find problematic form fields causing abandonment</li>
+      <li>Measure form completion confidence through typing rhythm</li>
+      <li>Optimize field order based on hesitation patterns</li>
+    </ul>
+
+    <hr class="notion-divider">
+
+    <!-- Philosophy -->
+    <h2>Design Philosophy</h2>
+    <p>
+      Like Chyavana's transformation from observation to enlightenment, this library embodies 
+      three core principles:
+    </p>
+    
+    <div class="notion-callout">
+      <div class="notion-callout-icon">🧘</div>
+      <div class="notion-callout-content">
+        <strong>Patience & Non-Intrusiveness:</strong> Observe without disrupting. 
+        The library operates silently in the background, never blocking user interactions.
+      </div>
+    </div>
+    
+    <div class="notion-callout">
+      <div class="notion-callout-icon">🔍</div>
+      <div class="notion-callout-content">
+        <strong>Subtle Perception:</strong> Detect micro-signals that reveal deeper truths. 
+        Focus on patterns that traditional analytics miss.
+      </div>
+    </div>
+    
+    <div class="notion-callout">
+      <div class="notion-callout-icon">🛡️</div>
+      <div class="notion-callout-content">
+        <strong>Respectful Observation:</strong> Honor user privacy as sacred. 
+        Collect behavioral patterns, not personal secrets.
+      </div>
+    </div>
+
+    <hr class="notion-divider">
+
+    <!-- API Reference -->
+    <h2>API Reference</h2>
+    
+    <h3>Methods</h3>
+    <div class="notion-code">
+<span class="notion-code-comment">// Manually log custom events</span>
+analytics.track(eventType, eventData)
+
+<span class="notion-code-comment">// Force flush buffered events</span>
+analytics.flush()
+
+<span class="notion-code-comment">// Start tracking</span>
+analytics.startTracking()
+
+<span class="notion-code-comment">// Stop tracking and flush</span>
+analytics.stopTracking()
+
+<span class="notion-code-comment">// Get current session data</span>
+analytics.getAnalyticsData()
+
+<span class="notion-code-comment">// Enable/disable tracking</span>
+analytics.enable()
+analytics.disable()
+analytics.isEnabled()
+    </div>
+
+    <hr class="notion-divider">
+
+    <!-- Contributing -->
+    <h2>Contributing</h2>
+    <p>
+      Contributions are welcome! Whether you're fixing bugs, adding features, or improving 
+      documentation, your help makes Chyavan better for everyone.
+    </p>
+    <ul>
+      <li><a href="https://github.com/ritiksp/chyavan">View on GitHub</a></li>
+      <li><a href="https://github.com/ritiksp/chyavan/issues">Report Issues</a></li>
+      <li><a href="https://github.com/ritiksp/chyavan/pulls">Submit Pull Requests</a></li>
+    </ul>
+
+    <hr class="notion-divider">
+
+    <!-- License -->
+    <h2>License</h2>
+    <p>
+      MIT License — free to use, modify, and distribute. See the 
+      <a href="https://github.com/ritiksp/chyavan/blob/main/LICENSE">LICENSE</a> file for details.
+    </p>
+
+  </div>
 
   <!-- Footer -->
   <footer>
     <p>
-      Made with ❤️ by <a href="https://github.com/ritiksp" target="_blank">Ritik</a> | 
-      <a href="https://github.com/ritiksp/chyavan" target="_blank">GitHub</a> | 
-      <a href="https://www.npmjs.com/package/chyavan" target="_blank">npm</a>
+      Powered by 🔋 <a href="https://github.com/ritiksp" target="_blank">UXPulse</a>
     </p>
-    <p style="margin-top: 10px; color: #666;">
-      Licensed under MIT | Open Source
+    <p style="margin-top: 8px;">
+      <a href="https://github.com/ritiksp/chyavan" target="_blank">GitHub</a> · 
+      <a href="https://www.npmjs.com/package/chyavan" target="_blank">npm</a> · 
+      <a href="https://github.com/ritiksp/chyavan/blob/main/LICENSE" target="_blank">MIT License</a>
     </p>
   </footer>
 
-  <!-- Load Chyavan -->
-  <script src="https://cdn.jsdelivr.net/npm/chyavan@latest/dist/chyavan.umd.js"></script>
+  <!-- Bootstrap JS (for potential future use) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Demo Script with Mock Tracker -->
   <script>
     let tracker = null;
+    let eventCount = 0;
     const output = document.getElementById('output');
+    
+    // Mock BehavioralAnalytics class for demo purposes
+    class MockChyavan {
+      constructor(config) {
+        this.config = config;
+        this.buffer = [];
+        this.enabled = true;
+        this.sessionId = 'session_' + Date.now();
+        this.setupListeners();
+        
+        if (config.debug) {
+          console.log('Mock Chyavan initialized', config);
+        }
+      }
+      
+      setupListeners() {
+        // Track input changes
+        document.addEventListener('input', (e) => {
+          if (e.target.matches('input, textarea')) {
+            this.logEvent('input_change', {
+              element: e.target.tagName,
+              placeholder: e.target.placeholder,
+              valueLength: e.target.value.length
+            });
+          }
+        });
+        
+        // Track mouse movements (throttled)
+        let lastMove = 0;
+        document.addEventListener('mousemove', (e) => {
+          const now = Date.now();
+          if (now - lastMove > 500) {
+            this.logEvent('cursor_move', {
+              x: e.clientX,
+              y: e.clientY
+            });
+            lastMove = now;
+          }
+        });
+        
+        // Track clicks
+        document.addEventListener('click', (e) => {
+          this.logEvent('click', {
+            element: e.target.tagName,
+            text: e.target.textContent.substring(0, 50)
+          });
+        });
+      }
+      
+      logEvent(type, data) {
+        if (!this.enabled) return;
+        
+        const event = {
+          type: type,
+          sessionId: this.sessionId,
+          timestamp: Date.now(),
+          data: data
+        };
+        
+        this.buffer.push(event);
+        log(`📊 Event: ${type} - ${JSON.stringify(data)}`);
+        
+        if (this.buffer.length >= this.config.bufferSize) {
+          this.flush();
+        }
+      }
+      
+      track(eventType, eventData) {
+        this.logEvent(eventType, eventData);
+      }
+      
+      flush() {
+        if (this.buffer.length === 0) return;
+        
+        const events = [...this.buffer];
+        this.buffer = [];
+        
+        if (this.config.onFlush) {
+          this.config.onFlush(events);
+        }
+        
+        if (this.config.debug) {
+          console.log('Flushed events:', events);
+        }
+      }
+      
+      enable() {
+        this.enabled = true;
+      }
+      
+      disable() {
+        this.enabled = false;
+      }
+      
+      isEnabled() {
+        return this.enabled;
+      }
+    }
     
     function log(message) {
       const timestamp = new Date().toLocaleTimeString();
@@ -393,46 +870,31 @@ tracker.track('button_click', {
     }
     
     function clearOutput() {
-      output.textContent = '';
-    }
-    
-    function giveConsent() {
-      localStorage.setItem('trackingConsent', 'true');
-      initializeTracker();
-      log('✅ Consent given - tracking enabled');
-    }
-    
-    function denyConsent() {
-      localStorage.setItem('trackingConsent', 'false');
-      if (tracker) {
-        tracker.destroy();
-        tracker = null;
-      }
-      log('❌ Consent denied - tracking disabled');
+      output.textContent = 'Cleared. Waiting for events...\n';
     }
     
     function initializeTracker() {
       if (tracker) return;
       
-      tracker = new Chyavan({
+      tracker = new MockChyavan({
         apiEndpoint: 'https://httpbin.org/post',
         debug: true,
         bufferSize: 5,
+        flushInterval: 3000,
         onFlush: (events) => {
-          log(`📤 Flushing ${events.length} events`);
+          log(`📤 Flushed ${events.length} events to server`);
         }
       });
       
-      log('🚀 Chyavan tracker initialized');
+      log('🚀 Chyavan initialized and tracking started');
     }
     
     function trackCustomEvent() {
       if (!tracker) {
-        log('❌ Tracker not initialized - please give consent first');
-        return;
+        initializeTracker();
       }
-      tracker.track('demo_button_click', {
-        message: 'Custom event triggered',
+      tracker.track('demo_custom_event', {
+        message: 'Custom event from demo',
         timestamp: Date.now()
       });
       log('📝 Custom event tracked');
@@ -440,37 +902,51 @@ tracker.track('button_click', {
     
     function flushEvents() {
       if (!tracker) {
-        log('❌ Tracker not initialized - please give consent first');
-        return;
+        initializeTracker();
       }
       tracker.flush();
+      log('🔄 Manual flush triggered');
     }
     
     function toggleTracking() {
       if (!tracker) {
-        log('❌ Tracker not initialized - please give consent first');
+        initializeTracker();
         return;
       }
+      
       if (tracker.isEnabled()) {
         tracker.disable();
-        log('⏸️ Tracking disabled');
+        log('⏸️ Tracking paused');
       } else {
         tracker.enable();
-        log('▶️ Tracking enabled');
+        log('▶️ Tracking resumed');
       }
     }
     
-    // Initialize on page load
+    function toggleSection(element) {
+      const toggle = element.parentElement;
+      toggle.classList.toggle('active');
+    }
+    
+    // Auto-initialize on page load
     document.addEventListener('DOMContentLoaded', () => {
-      const hasConsent = localStorage.getItem('trackingConsent');
-      if (hasConsent === 'true') {
+      log('👋 Welcome to Chyavan demo');
+      log('💡 Interact with the page to see events');
+      log('⏳ Initializing tracker...');
+      
+      // Setup toggle click handlers
+      document.querySelectorAll('.notion-toggle-header').forEach(header => {
+        header.style.cursor = 'pointer';
+        header.addEventListener('click', function() {
+          const toggle = this.parentElement;
+          toggle.classList.toggle('active');
+        });
+      });
+      
+      // Auto-initialize after a short delay
+      setTimeout(() => {
         initializeTracker();
-        log('🔄 Tracking resumed from previous session');
-      } else if (hasConsent === 'false') {
-        log('⏸️ Tracking disabled by user choice');
-      } else {
-        log('⏳ Waiting for user consent...');
-      }
+      }, 500);
     });
   </script>
 </body>
