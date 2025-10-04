@@ -1,7 +1,7 @@
 {
     "type": "module",
     "name": "chyavan",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Chyavan — advanced user behavior tracking library (cursor, typing, gestures, micro-hesitation)",
     "main": "dist/chyavan.cjs.js",
     "module": "dist/chyavan.esm.js",
